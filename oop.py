@@ -6,7 +6,7 @@
 class Employee:
 
     num_of_emps = 0
-    raise_amount = 1.04
+    raise_amt = 1.04
 
     def __init__(self, first, last, pay):
         self.first = first
@@ -22,27 +22,25 @@ class Employee:
     def apply_raise(self):
         self.pay = int(self.pay * self.raise_amount)
 
-# Instances of Employee
-# Instance variables can be unique for each instance
+    @classmethod # Class method will apply to entire class, not just one instance
+    def set_raise_amt(cls, amount):
+        cls.raise_amt = amount
 
-print(Employee.num_of_emps)
+    @classmethod
+    def from_string(cls, emp_str):
+        first, last, pay = emp_str.split('-')
+        return cls(first, last, pay)
+
+    @staticmethod # Don't take instance or class as first arg, a good indicator that a method should be static is if you don't access the instance/class within the function
+    def is_workday(day):
+        if day.weekday() == 5 or day.weekday() == 6:
+            return False
+        return True
 
 emp_1 = Employee('Corey', 'Schaeffer', 50000)
 emp_2 = Employee('Test', 'User', 60000)
 
-print(Employee.num_of_emps)
+import datetime
+my_date = datetime.date(2020, 3, 10)
 
-# print(employee.__dict__)
-
-# emp_1.raise_amount = 1.05
-#
-# print(emp_1.__dict__)
-#
-# print(Employee.raise_amount)
-# print(emp_1.raise_amount)
-# print(emp_2.raise_amount)
-
-
-
-# emp_1.raise_amount
-# Employee.raise_amount
+print(Employee.is_workday(my_date))
